@@ -1,54 +1,40 @@
-// Scroll To Gallery
-
-
-
-
-// Countdown Timer
-// عدلي التاريخ حسب عيد ميلاد Asmaa
-
-const birthdayDate = new Date("2004-07-08 00:00:00").getTime();
+// ===============================
+// Countdown to Asmaa's Birthday
+// ===============================
 
 const timer = document.getElementById("timer");
 
-setInterval(() => {
+function updateCountdown() {
 
-    const now = new Date().getTime();
+    const now = new Date();
 
-    const distance = birthdayDate - now;
+    // عيد الميلاد: 8 يوليو
+    let birthday = new Date(now.getFullYear(), 6, 8, 0, 0, 0);
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
-    const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
-
-    const minutes = Math.floor(
-        (distance % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
-
-    const seconds = Math.floor(
-        (distance % (1000 * 60))
-        / 1000
-    );
-
-    if (distance > 0) {
-
-        timer.innerHTML =
-            `${days} يوم 🎂 ${hours} ساعة ⏰ ${minutes} دقيقة 💜 ${seconds} ثانية`;
-
-    } else {
-
-        timer.innerHTML =
-            "🎉 عيد ميلاد سعيد Asmaa 💜";
-
+    // إذا مرّ عيد الميلاد لهذه السنة، احسب للسنة القادمة
+    if (now > birthday) {
+        birthday = new Date(now.getFullYear() + 1, 6, 8, 0, 0, 0);
     }
 
-}, 1000);
+    const distance = birthday - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    timer.innerHTML =
+        `${days} يوم 🎂 ${hours} ساعة ⏰ ${minutes} دقيقة 💜 ${seconds} ثانية`;
+
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
 
 
+// ===============================
 // Floating Hearts
+// ===============================
 
 const heartsContainer = document.querySelector(".floating-hearts");
 
@@ -62,9 +48,7 @@ function createHeart() {
     heart.style.left = Math.random() * 100 + "%";
     heart.style.top = "100%";
 
-    heart.style.fontSize =
-        Math.random() * 20 + 20 + "px";
-
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
     heart.style.opacity = Math.random();
 
     heart.style.animation =
@@ -75,12 +59,15 @@ function createHeart() {
     setTimeout(() => {
         heart.remove();
     }, 10000);
+
 }
 
 setInterval(createHeart, 700);
 
 
+// ===============================
 // Heart Animation
+// ===============================
 
 const style = document.createElement("style");
 
@@ -100,15 +87,17 @@ style.innerHTML = `
 document.head.appendChild(style);
 
 
+// ===============================
 // Fade In Sections
+// ===============================
 
 const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
 
-        if(entry.isIntersecting){
+        if (entry.isIntersecting) {
 
             entry.target.style.opacity = "1";
             entry.target.style.transform = "translateY(0)";
@@ -130,7 +119,9 @@ sections.forEach(section => {
 });
 
 
+// ===============================
 // Gallery Click Effect
+// ===============================
 
 const images = document.querySelectorAll(".gallery img");
 
@@ -138,11 +129,13 @@ images.forEach(img => {
 
     img.addEventListener("click", () => {
 
-        img.style.transform = "scale(1.15)";
+        img.style.transform = "scale(1.08)";
 
         setTimeout(() => {
+
             img.style.transform = "scale(1)";
-        }, 500);
+
+        }, 300);
 
     });
 
