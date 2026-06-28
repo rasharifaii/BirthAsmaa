@@ -4,7 +4,15 @@ padding:0;
 box-sizing:border-box;
 font-family:'Cairo',sans-serif;
 }
-
+.hero::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+}
 body{
 background:linear-gradient(135deg,#4b0082,#6a0dad,#8a2be2);
 color:white;
